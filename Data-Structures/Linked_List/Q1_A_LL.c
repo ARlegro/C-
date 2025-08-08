@@ -25,19 +25,7 @@ typedef struct _linkedlist{
 ///////////////////////// function prototypes ////////////////////////////////////
 
 //You should not change the prototype of this function
-int insertSortedLL(LinkedList *ll, int item){
-	// 1. 새 노드를 위한 메모리 할당 
-	ListNode *newNode = (ListNode *)malloc(sizeof(ListNode));
-	if (newNode == NULL){
-		return -1;
-	}
-
-	// 2. 노드에 데이터를 삽입
-	newNode->item = item;
-	
-	// 3. 
-	
-}
+int insertSortedLL(LinkedList *ll, int item);
 
 void printList(LinkedList *ll);
 void removeAllItems(LinkedList *ll);
