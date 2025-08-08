@@ -87,12 +87,57 @@ int main()
 void moveOddItemsToBack(LinkedList *ll)
 {
 	/* add your code here */
-}
+	if (ll == NULL || ll->head == NULL || ll->size < 1){
+		return;
+	}
 
+	ListNode *tail = ll->head;
+	while (tail->next != NULL){
+		tail = tail->next;
+	}
+	
+	ListNode *original_tail_node = tail;
+	ListNode *cur = ll->head;
+	ListNode *prev = NULL;
+
+	int isLopped = 0;
+	while (!isLopped)
+	{
+		// 종료조건 = 한바퀴 다 돌았을 때, 
+		if (cur == original_tail_node){
+			isLopped = 1;
+		}
+
+		// 현재 노드가 홀수인 경우
+		if (cur->item & 1) {
+			// 마지막일 경우 진행 x 
+			if (cur == tail) {
+				break;
+			}
+
+			// 홀수를 담기 
+			ListNode *odd_node = cur;
+
+			if (cur == ll->head) { // 헤드가 홀수인 경우 
+				ll->head = cur->next;
+				cur = ll->head;
+			} else { // 중간 홀수인 경우
+				prev->next = cur->next;
+				cur = prev->next;
+			}
+
+			tail->next = odd_node;
+			tail = odd_node;
+			odd_node->next = NULL;
+		} else {
+			prev = cur;
+			cur = cur->next;
+		}
+	}
+}
 ///////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){
-
 	ListNode *cur;
 	if (ll == NULL)
 		return;
