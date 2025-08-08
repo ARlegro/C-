@@ -23,7 +23,6 @@ typedef struct _linkedlist
 	ListNode *head;
 } LinkedList;			// You should not change the definition of LinkedList
 
-
 //////////////////////// function prototypes /////////////////////////////////////
 
 // You should not change the prototype of this function
@@ -103,7 +102,29 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+	ListNode *node1 = ll1->head;
+	ListNode *node2 = ll2->head;
+	
+	// 사이즈 
+	while (node1 != NULL && node2 != NULL){
+		// node_l1의 next를 node_l2		
+		ListNode *temp1 = node1->next;
+		ListNode *temp2 = node2->next;
+		
+		node1->next = node2;
+		node2->next = temp1;
+		node1 = temp1;
+		node2 = temp2;
+		ll2->head = node2;
+
+		ll1->size++;
+		ll2->size--;
+	}
+
+	if (node2 == NULL){
+		ll2->size = 0;
+		ll2->head = NULL;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
