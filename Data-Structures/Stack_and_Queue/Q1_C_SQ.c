@@ -105,7 +105,6 @@ int main()
 			printf("Choice unknown;\n");
 			break;
 		}
-
 	}
 
 	return 0;
@@ -115,13 +114,34 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
-{
+{	
+	if (q == NULL) return;
+
+	// 큐 비우기 
+	int count = q->ll.size;
+	for (int i = 0; i <count; i++){
+		dequeue(q);
+	}
+
+	// 속성하나씩 넣기 
+	ListNode *cur = ll->head;
+	while (cur != NULL){
+		enqueue(q, cur->item);
+		cur = cur->next;
+	}	
 	/* add your code here */
 }
 
 void removeOddValues(Queue *q)
 {
-	/* add your code here */
+	int size = q->ll.size;
+	for (int i =0; i < size; i++){
+		int val = dequeue(q);
+		// 짝수만 다시 넣기 
+		if (val % 2 == 0){
+			enqueue(q, val);
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
