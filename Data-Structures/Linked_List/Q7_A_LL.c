@@ -85,9 +85,28 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////
 
+
+// 1, 4, 5 
 void RecursiveReverse(ListNode **ptrHead)
 {
 	/* add your code here */
+	if (*ptrHead == NULL || (*ptrHead)->next == NULL) {
+		return;
+	}
+
+	ListNode *first = *ptrHead;
+	ListNode *rest =  first->next;
+	
+	RecursiveReverse(&rest);
+	
+	// 뒤집힌 꼬리의 끝을 parentNode로 연결 
+	(*ptrHead)->next->next = first;
+	
+	// parentNode는 이제 꼬리이므로 next = null
+	(*ptrHead)->next = NULL;
+	// 함수로 전달받은 head를 새 헤드(원래 꼴찌였던)로 교체  
+	// 이유 : 이거를 안하면 반환 후 이전 호출의 (*ptrHead)->next 에서 null이 나옴
+	*ptrHead = rest;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
