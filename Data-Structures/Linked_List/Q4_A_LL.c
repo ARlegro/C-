@@ -27,7 +27,7 @@ typedef struct _linkedlist
 //////////////////////// function prototypes /////////////////////////////////////
 
 // You should not change the prototype of this function
-void moveEvenItemsToBack(LinkedList *ll);
+void moveEvenItemsToBackV1(LinkedList *ll);
 
 void printList(LinkedList *ll);
 void removeAllItems(LinkedList *ll);
@@ -66,7 +66,7 @@ int main()
 			printList(&ll);
 			break;
 		case 2:
-			moveEvenItemsToBack(&ll); // You need to code this function
+			moveEvenItemsToBackV1(&ll); // You need to code this function
 			printf("The resulting linked list after moving even integers to the back of the linked list is: ");
 			printList(&ll);
 			removeAllItems(&ll);
@@ -84,10 +84,61 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void moveEvenItemsToBack(LinkedList *ll)
+void moveEvenItemsToBackV1(LinkedList *ll)
+{
+	/* add your code here */
+	if (ll == NULL || ll->head == NULL || ll->size <= 1){
+		return;
+	}
+
+	ListNode *origianlTail = ll->head;
+	while (origianlTail->next !=NULL)
+	{
+		origianlTail = origianlTail->next;
+	}
+
+	ListNode *tail = origianlTail;
+	ListNode *cur = ll->head;
+	ListNode *prev = NULL;
+	do {
+
+		ListNode *next_node = cur->next;
+
+		if (cur->item & 1) {
+			prev = cur;
+		} else {
+			// 짝수인 경우 
+			ListNode *even_node = cur;
+
+			if (cur == ll->head){
+				ll->head = next_node;
+			} else {
+				prev->next = next_node;
+			}
+
+			tail->next = even_node;
+			tail = even_node;
+			tail->next = NULL;
+		}
+		cur = next_node;
+	} while (cur != origianlTail);
+
+	// 마지막 처리 
+	if (cur->item % 2 == 0) {
+			prev->next = cur->next;
+			tail->next = cur;
+			tail = cur;
+			tail->next = NULL;
+	}
+}
+
+
+void moveEvenItemsToBackV2(LinkedList *ll)
 {
 	/* add your code here */
 }
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 
