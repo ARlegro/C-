@@ -45,6 +45,7 @@ int main()
 	//Initialize the linked list as an empty linked list
 	ll.head = NULL;
 	ll.size = 0;
+	c = 1;
 
 	//Initialize the front linked list as an empty linked list
 	resultFrontList.head = NULL;
@@ -60,7 +61,7 @@ int main()
 
 	while (c != 0)
 	{
-	    printf("Please input your choice(1/2/0): ");
+		printf("Please input your choice(1/2/0): ");
 		scanf("%d", &c);
 
 		switch (c)
@@ -103,12 +104,52 @@ int main()
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
 	/* add your code here */
+	if (ll == NULL || ll->head == NULL || ll->size < 1){
+		return;
+	}
+ 
+	ListNode *frontListTail = NULL;
+	ListNode *backListTail = NULL;
+	ListNode *cur = ll->head;
+	int index = 0;
+
+	int mid = (ll->size / 2) + ll->size % 2;
+	while (cur != NULL)
+	{
+		ListNode *next_node = cur->next;
+		// front
+		// size = 7 => 3 (0,1,2,3)
+		// size = 6 => 3 (0,1,2)
+		if (index < mid) {
+			// 처음인 경우 
+			if (resultFrontList->head == NULL) {
+				resultFrontList->head = cur;
+			} else {
+				frontListTail->next = cur;				
+			}
+
+			frontListTail = cur;
+			frontListTail->next = NULL;
+			resultFrontList->size++;
+		} else {
+			if (resultBackList->head == NULL){
+				resultBackList->head = cur;	
+			} else {
+				backListTail->next = cur;
+			}
+			backListTail = cur;
+			backListTail->next = NULL;
+			resultBackList->size++;
+		}
+		cur = next_node;
+		index++;
+	}
+	ll->head = NULL;
+	ll->size = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
-
 void printList(LinkedList *ll){
-
 	ListNode *cur;
 	if (ll == NULL)
 		return;
