@@ -103,7 +103,41 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	// only uses push() and pop() 
+	// when adding or removing integers from the stack.
+
+	// 홀수일 경우 0 반환 
+	int stackSize = s->ll.size;
+	if (stackSize & 1){
+		return 0;
+	}
+	
+	int *tempArr = malloc(sizeof(int)*stackSize);
+	int isConsecutive = 1;
+	int index = 0;
+	while (index < stackSize)
+	{
+		int pop1 = pop(s);
+		int pop2 = pop(s);
+
+		int dif = pop1 - pop2;
+		// 아닐 경우 
+		if (dif != 1 && dif != -1){
+			isConsecutive = 0;
+			break;
+		}
+		tempArr[index] = pop1;
+		tempArr[index + 1] = pop2;
+		index += 2;
+	}
+	// s 다시 채우기 
+	for (int i = sizeof(tempArr) - 1; i >= 0; i--){
+		push(s, i);
+	}
+	free(tempArr);
+
+	if (isConsecutive) return 1;
+	else return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
