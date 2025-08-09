@@ -84,7 +84,53 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+
 void moveOddItemsToBack(LinkedList *ll)
+{
+	/* add your code here */
+	ListNode *even_head = NULL;
+	ListNode *even_tail = NULL;
+	ListNode *odd_head = NULL;
+	ListNode *odd_tail = NULL;
+
+	ListNode *cur = ll->head;
+	ListNode *prev = NULL;
+	ll->head = NULL;
+
+	while (cur != NULL)
+	{
+		// 홀수인 경우 
+		if (cur->item & 1) {
+			if (odd_head == NULL) {
+				odd_head = cur;
+				odd_tail = cur;
+			} else {
+				odd_tail->next = cur;
+				odd_tail = cur;
+			}
+		} else {
+			// 짝수인 경우
+			if (even_head == NULL) {
+				even_head = cur;
+				even_tail = cur;
+			} else {
+				even_tail->next = cur;
+				even_tail = cur;
+			}
+		}
+	
+		cur = cur->next;
+	}
+
+	if (even_head == NULL) {
+		ll->head = odd_head;
+	} else{
+		even_tail->next = odd_head;
+		ll->head = even_head;
+	}
+}
+
+void moveOddItemsToBack2(LinkedList *ll)
 {
 	/* add your code here */
 	if (ll == NULL || ll->head == NULL || ll->size < 1){
@@ -135,6 +181,9 @@ void moveOddItemsToBack(LinkedList *ll)
 		}
 	}
 }
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){
