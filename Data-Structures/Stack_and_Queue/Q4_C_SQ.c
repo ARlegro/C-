@@ -112,7 +112,22 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	/**
+	 * 조건 : 원소를 더하거나 제거할 떄 enqueue(), dequeue()만 사용해라
+	 */
+	Stack *tempStack = (Stack *) malloc(sizeof(Stack));
+	if (tempStack->ll.size != 0) {
+			removeAllItems(&(tempStack->ll));
+	}
+	
+	int queueSize = q->ll.size;
+	for (int i = 0; i <queueSize; i++){
+		push(tempStack, dequeue(q));
+	}
+
+	for (int i = 0; i <queueSize; i++){
+		enqueue(q, pop(tempStack));
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
