@@ -99,9 +99,20 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 int countOneChildNodes(BTNode *node)
-
 {
     /* add your code here */
+    BTNode *ln = node->left;
+    BTNode *rn = node->right;
+    if (ln == NULL && rn == NULL){
+        return 0;
+    }
+    
+    // 한쪽만 있는 경우 
+    if (ln == NULL) return countOneChildNodes(rn) + 1;
+    if (rn == NULL) return countOneChildNodes(ln) + 1;
+
+    // 양쪽 있는 경우 
+    return countOneChildNodes(ln) + countOneChildNodes(rn);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
