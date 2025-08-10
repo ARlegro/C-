@@ -127,6 +127,27 @@ void createStackFromLinkedList(LinkedList *ll, Stack *s)
 void removeEvenValues(Stack *s)
 {
 	/* add your code here */
+	Stack *tempStack = malloc(sizeof(Stack));
+	if (tempStack == NULL) {
+		return; 
+	}
+
+	tempStack->ll.head = NULL;
+	tempStack->ll.size = 0;
+
+	int stackSize = s->ll.size;
+	for (int i=0; i<stackSize; i++){
+		 int popped = pop(s);
+		 if (popped & 1){
+				push(tempStack, popped);
+				tempStack->ll.size++;
+		 }
+	}
+
+	for (int i=0; i < tempStack->ll.size; i++){
+		int popped = pop(tempStack);
+		push(s, popped);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////

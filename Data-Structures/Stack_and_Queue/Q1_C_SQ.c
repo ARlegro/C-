@@ -116,7 +116,6 @@ int main()
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {	
 	if (q == NULL) return;
-
 	// 큐 비우기 
 	int count = q->ll.size;
 	for (int i = 0; i <count; i++){
