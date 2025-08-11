@@ -103,6 +103,12 @@ int main()
 int smallestValue(BTNode *node)
 {
 	/* add your code here */
+    if (node == NULL) return __INT_MAX__;
+
+    int leftSamllest = smallestValue(node->left);
+    int rightSamllest = smallestValue(node->right);
+    int childSmallest = (leftSamllest > rightSamllest) ? rightSamllest : leftSamllest;
+    return (node->item > childSmallest) ? childSmallest : node->item;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
