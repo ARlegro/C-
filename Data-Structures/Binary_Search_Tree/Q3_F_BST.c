@@ -91,7 +91,25 @@ int main()
 
 void preOrderIterative(BSTNode *root)
 {
-	 /* add your code here */
+	 Stack s = {NULL};
+	 /**
+		구현 막히는 것들
+		1. 오른쪽을 어케 보관할지를 모르겠어 : pop하면 사라지는데 
+			- 오른쪽을 먼저 스택에 push하면 될 듯???
+		2. 
+	  */
+
+	push(&s, root);
+	while (!isEmpty(&s))
+	{
+		BSTNode *popped = pop(&s);
+		if (popped == NULL) continue;
+		if (popped->right != NULL) push(&s, popped->right);
+		if (popped->left != NULL) push(&s, popped->left);				
+
+		printf("%d", popped->item);
+		if (!isEmpty(&s)) printf(", ");
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
