@@ -116,9 +116,7 @@ int main()
 int identical(BTNode *tree1, BTNode *tree2)
 {
    // 전부 NULL일 경우 
-   if (tree1 == NULL && tree2 == NULL){
-    return 1;
-   }
+   if (tree1 == NULL && tree2 == NULL) return 1;
    
    // 둘 중 하나만 NULL일 경우 
    // 숫자가 다를 경우 
@@ -130,7 +128,7 @@ int identical(BTNode *tree1, BTNode *tree2)
    // 둘의 숫자가 같은 경우 
    //// 1. 왼쪽 재귀 호출 
    int result1 = identical(tree1->left, tree2->left);
-   // 왼쪽 재귀 호출에서부터 다른 경우 
+   //// 왼쪽 재귀 호출에서부터 다른 경우 
    if (!result1) return 0; 
 
    //// 2. 오른쪽 재귀 호출 

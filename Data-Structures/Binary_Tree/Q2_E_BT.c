@@ -93,7 +93,6 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
 int maxHeight(BTNode *node) // param = root
 {
     // 큐 같은거 있고 
@@ -105,7 +104,6 @@ int maxHeight(BTNode *node) // param = root
     int max = (leftMax < rightMax) ? rightMax : leftMax;
     return max + 1;
 }
-
 ///////////////////////////////////////////////////////////////////////////////////
 
 BTNode *createBTNode(int item){

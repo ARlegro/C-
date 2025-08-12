@@ -87,48 +87,39 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
+
 int insertSortedLL(LinkedList *ll, int item)
 {
-		// 1. 새 노드를 위한 메모리 할당 
-	ListNode *newNode = (ListNode *)malloc(sizeof(ListNode));
-	if (newNode == NULL){
-		return -1;
-	}
+	 ListNode *curNode = (ListNode *) ll->head;
+	 ListNode *prev = NULL;
+	 int index = 0;
+	 while (1)
+	 {
+			// 끝까지 갔을 경우 or 삽입 자리 
+			if (curNode == NULL || curNode->item > item) break;
+			if (curNode->item == item) return -1; 
+			prev = curNode;
+			curNode = curNode->next;
+			index++;
+	 }
 
-	// 2. 노드에 데이터를 삽입
-	newNode->item = item;
-	newNode->next = NULL;
+ 	 ListNode *newNode = (ListNode *) malloc(sizeof(ListNode));
+	 if (newNode == NULL) return -1;
+	 newNode->item = item;
+	 newNode->next = NULL;
 
-	// 삽입하려면 두개의 노드 사이에서 해야 하므로 
-	ListNode *cur = ll->head;
-	ListNode *prev = NULL;  
-	int index = 0;
-
-	// 리스트를 순회하며 삽입 위치와 중복 값 찾기 
-	while (cur != NULL && cur->item < item){
-		/* code */
-		prev = cur;
-		cur = cur->next;
-		index++;
-	}
-
-	// 중복 체크 
-	if (cur != NULL && cur->item == item){
-		free(newNode);
-		return -1;
-	}
-
-	// 빈 리스트이거나 제일 작은 경우
-	if (prev == NULL){
+	 // index와 prev node를 구한 뒤 여기서 
+	 if (prev == NULL){
 		newNode->next = ll->head;
 		ll->head = newNode;
-	} else { // 리스트 중간 or 끝인 경우 
+	 } else{
 		prev->next = newNode;
-		newNode->next = cur;
-	}
+	 	newNode->next = curNode;
+	 }
+	 
+	 ll->size++;
 
-	ll->size++;
-	return index;
+	 return index;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
