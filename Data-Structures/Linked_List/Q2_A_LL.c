@@ -99,34 +99,34 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-	ListNode *node1 = ll1->head;
-	ListNode *node2 = ll2->head;
-	
-	// 사이즈 
-	while (node1 != NULL && node2 != NULL){
-		// node_l1의 next를 node_l2		
-		ListNode *temp1 = node1->next;
-		ListNode *temp2 = node2->next;
-		
-		node1->next = node2;
-		node2->next = temp1;
-		node1 = temp1;
-		node2 = temp2;
-		ll2->head = node2;
+	if (!ll1 || !ll2) return;
 
+	ListNode *cur1 = ll1->head;
+	ListNode *cur2 = ll2->head;
+	if (cur1 == NULL) {
+		ll1->head = ll2->head;
+		ll1->size = ll2->size;
+		ll2->head = NULL;
+		ll2->size = 0;
+		return;
+	}
+
+	while (cur1 != NULL && cur2 != NULL){
+		ListNode *nextNode1 = (ListNode *) cur1->next;
+		ListNode *nextNode2 = (ListNode *) cur2->next;
+
+		cur1->next = cur2;
+		cur1->next->next = nextNode1;
 		ll1->size++;
 		ll2->size--;
-	}
 
-	if (node2 == NULL){
-		ll2->size = 0;
-		ll2->head = NULL;
+		cur1 = nextNode1;
+		cur2 = nextNode2;
 	}
+	ll2->head = cur2;
 }
-
 ///////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){
